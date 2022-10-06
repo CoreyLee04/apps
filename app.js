@@ -1,21 +1,22 @@
 
 // function to calc square
-function square(numLength) {
+function radsquare(numLength) {
     
-    p = 4 * numLength;
-
-    alert(p.toFixed(2));
-    //alert('The perimeter of a square is ${p}');
+    let p = 4 * numLength;
+    let message = "The perimeter of the square is " + p.toFixed(2);
+    alert(message);
 }
 // function to cal circle
 function radCircle(numLength) {
-    p = 2 * Math.PI * numLength;
-    alert(p.toFixed(2));
+    let p = 2 * Math.PI * numLength;
+    let message = "The perimeter of the circle is " + p.toFixed(2);
+    alert(message);
 }
 // function to cal rectangle
-function radRectangle(numWidth, numLength) {
-    p = numLength + numWidth * 2;
-    alert(p.toFixed(2));
+function radRectangle(numLength, numWidth) {
+    p = (numLength + numWidth) * 2;
+    message = "The perimeter of the rectangle is " + p.toFixed(2);
+    alert(message);
 }
 
 function LengthRadiusValid(numLength) {
@@ -40,22 +41,25 @@ function LengthRadiusValid(numLength) {
 function WidthValid(numWidth){
     let msg = "";
 
-    //test error w/if
-    if(numWidth <= 0){
+    //test validation w/if
+    if (numWidth <= 0) {
+        
         msg = "Width must be a number greater than 0\n";
         return msg;
     }
 
-    if (isNaN(numWidth)) {
+    if(isNaN(numWidth)) {
+
         msg = "Width is a required number\n";
         return msg;
     }
+    return numWidth;
 }
 
 //Button Click Event
 document.getElementById("btnGetPerim").addEventListener('click', function (){
-    let length = parseInt(document.getElementById("numLength").value);
-    let width = parseInt(document.getElementById("numWidth").value);
+    let length = parseFloat(document.getElementById("numLength").value);
+    let width = parseFloat(document.getElementById("numWidth").value);
 
     //radSquare Radio Button option check
     if(document.getElementById('radSquare').checked){
@@ -65,7 +69,7 @@ document.getElementById("btnGetPerim").addEventListener('click', function (){
         let length_radius_valid_check = LengthRadiusValid(length);
         if (isNaN(length_radius_valid_check) == false){
             //Square function used
-            square(length);
+            radsquare(length);
             
         }
         else {
@@ -92,15 +96,18 @@ document.getElementById("btnGetPerim").addEventListener('click', function (){
     if(document.getElementById('radRectangle').checked){
         alert('Rectangle Button is checked!');
 
-        //validation check
-        let width_valid_check = WidthValid(width);
         let length_radius_valid_check = LengthRadiusValid(length);
-        
-
-        alert(length_radius_valid_check);
-        alert(width_valid_check);
-
-        
-    
+        if(isNaN(length_radius_valid_check) == false){
+            let width_valid_check = WidthValid(width);
+            if(isNaN(width_valid_check) == false){
+                radRectangle(length,width);
+            }
+            else{
+                alert(width_valid_check);
+            }
+        }
+        else{
+            alert(length_radius_valid_check);
+        }
     }
 });
